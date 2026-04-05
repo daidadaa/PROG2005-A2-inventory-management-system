@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechStore Inventory - Part1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📦 TechStore Inventory System</h1>
+        <div id="messageArea"></div>
+        <!-- 表单区域 -->
+        <div class="form-panel">
+            <h2>Add / Edit Item</h2>
+            <input type="text" id="itemName" placeholder="Item Name">
+            <select id="category">
+                <option>Electronics</option><option>Furniture</option><option>Clothing</option>
+                <option>Tools</option><option>Miscellaneous</option>
+            </select>
+            <input type="number" id="quantity" placeholder="Quantity">
+            <input type="number" id="price" placeholder="Price">
+            <input type="text" id="supplier" placeholder="Supplier">
+            <select id="stockStatus">
+                <option>In Stock</option><option>Low Stock</option><option>Out of Stock</option>
+            </select>
+            <select id="popular">
+                <option>Yes</option><option>No</option>
+            </select>
+            <input type="text" id="comment" placeholder="Comment">
+            <button id="submitBtn">Add Item</button>
+        </div>
+        <!-- 表格显示 -->
+        <div id="inventoryTable"></div>
+    </div>
+    <script src="dist/inventory.js"></script>
+</body>
+</html>
