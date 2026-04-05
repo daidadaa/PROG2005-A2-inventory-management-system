@@ -1,71 +1,63 @@
+"use strict";
 // TechStore Inventory System - Part1
 // Day1: Data models and add item
-
-type Category = "Electronics" | "Furniture" | "Clothing" | "Tools" | "Miscellaneous";
-type StockStatus = "In Stock" | "Low Stock" | "Out of Stock";
-type Popular = "Yes" | "No";
-
-interface InventoryItem {
-    id: number;
-    name: string;
-    category: Category;
-    quantity: number;
-    price: number;
-    supplier: string;
-    stockStatus: StockStatus;
-    popular: Popular;
-    comment?: string;
-}
-
-let inventory: InventoryItem[] = [];
-let nextId: number = 1;
-
+let inventory = [];
+let nextId = 1;
 // DOM elements
-const msgDiv = document.getElementById("messageArea") as HTMLDivElement;
-const nameInp = document.getElementById("itemName") as HTMLInputElement;
-const categorySel = document.getElementById("category") as HTMLSelectElement;
-const qtyInp = document.getElementById("quantity") as HTMLInputElement;
-const priceInp = document.getElementById("price") as HTMLInputElement;
-const supplierInp = document.getElementById("supplier") as HTMLInputElement;
-const stockSel = document.getElementById("stockStatus") as HTMLSelectElement;
-const popularSel = document.getElementById("popular") as HTMLSelectElement;
-const commentInp = document.getElementById("comment") as HTMLInputElement;
-const submitBtn = document.getElementById("submitBtn") as HTMLButtonElement;
-
-function showMessage(msg: string, isError: boolean = false): void {
+const msgDiv = document.getElementById("messageArea");
+const nameInp = document.getElementById("itemName");
+const categorySel = document.getElementById("category");
+const qtyInp = document.getElementById("quantity");
+const priceInp = document.getElementById("price");
+const supplierInp = document.getElementById("supplier");
+const stockSel = document.getElementById("stockStatus");
+const popularSel = document.getElementById("popular");
+const commentInp = document.getElementById("comment");
+const submitBtn = document.getElementById("submitBtn");
+function showMessage(msg, isError = false) {
     msgDiv.innerHTML = `<span style="color:${isError ? 'red' : 'green'}">${msg}</span>`;
     setTimeout(() => { msgDiv.innerHTML = ""; }, 3000);
 }
-
-function getFormData(): Omit<InventoryItem, 'id'> {
+function getFormData() {
     return {
         name: nameInp.value.trim(),
-        category: categorySel.value as Category,
+        category: categorySel.value,
         quantity: parseInt(qtyInp.value),
         price: parseFloat(priceInp.value),
         supplier: supplierInp.value.trim(),
-        stockStatus: stockSel.value as StockStatus,
-        popular: popularSel.value as Popular,
+        stockStatus: stockSel.value,
+        popular: popularSel.value,
         comment: commentInp.value || undefined
     };
 }
-
-function validateForm(): boolean {
-    if (!nameInp.value.trim()) { showMessage("Name required", true); return false; }
-    if (isNaN(parseInt(qtyInp.value)) || parseInt(qtyInp.value) < 0) { showMessage("Qty >=0", true); return false; }
-    if (isNaN(parseFloat(priceInp.value)) || parseFloat(priceInp.value) <= 0) { showMessage("Price >0", true); return false; }
-    if (!supplierInp.value.trim()) { showMessage("Supplier required", true); return false; }
+function validateForm() {
+    if (!nameInp.value.trim()) {
+        showMessage("Name required", true);
+        return false;
+    }
+    if (isNaN(parseInt(qtyInp.value)) || parseInt(qtyInp.value) < 0) {
+        showMessage("Qty >=0", true);
+        return false;
+    }
+    if (isNaN(parseFloat(priceInp.value)) || parseFloat(priceInp.value) <= 0) {
+        showMessage("Price >0", true);
+        return false;
+    }
+    if (!supplierInp.value.trim()) {
+        showMessage("Supplier required", true);
+        return false;
+    }
     return true;
 }
-
-function addItem(): void {
-    if (!validateForm()) return;
+function addItem() {
+    if (!validateForm())
+        return;
     const newData = getFormData();
     if (inventory.some(item => item.name.toLowerCase() === newData.name.toLowerCase())) {
         showMessage("Duplicate name", true);
         return;
     }
-    const newItem: InventoryItem = { id: nextId++, ...newData };
+    const newItem = { id: nextId++, ...newData };
     inventory.push(newItem);
     showMessage(`Added: ${newItem.name}`);
     renderTable();
@@ -76,10 +68,10 @@ function addItem(): void {
     supplierInp.value = "";
     commentInp.value = "";
 }
-
-function renderTable(): void {
+function renderTable() {
     const tableDiv = document.getElementById("inventoryTable");
-    if (!tableDiv) return;
+    if (!tableDiv)
+        return;
     if (inventory.length === 0) {
         tableDiv.innerHTML = "<p>No items</p>";
         return;
@@ -101,12 +93,10 @@ function renderTable(): void {
     html += `</table>`;
     tableDiv.innerHTML = html;
 }
-
 submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
     addItem();
 });
-
 // Initial dummy data
 inventory = [
     { id: nextId++, name: "MacBook Pro", category: "Electronics", quantity: 5, price: 1999.99, supplier: "Apple", stockStatus: "In Stock", popular: "Yes", comment: "Best seller" },
