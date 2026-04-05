@@ -10,7 +10,6 @@
     <div class="container">
         <h1>📦 TechStore Inventory System</h1>
         <div id="messageArea"></div>
-        <!-- 表单区域 -->
         <div class="form-panel">
             <h2>Add / Edit Item</h2>
             <input type="text" id="itemName" placeholder="Item Name">
@@ -29,10 +28,29 @@
             </select>
             <input type="text" id="comment" placeholder="Comment">
             <button id="submitBtn">Add Item</button>
+            <button id="updateBtn">Update (by Name)</button>
+            <button id="deleteBtn">Delete (by Name)</button>
+            <button id="clearBtn">Clear Form</button>
         </div>
-        <!-- 表格显示 -->
+        <div>
+            <input type="text" id="searchInput" placeholder="Search by name">
+            <button id="searchBtn">Search</button>
+            <button id="resetSearchBtn">Reset</button>
+            <button id="showAllBtn">Show All</button>
+            <button id="showPopularBtn">Show Popular</button>
+        </div>
         <div id="inventoryTable"></div>
     </div>
+
+    <!-- 自定义模态框 -->
+    <div id="customConfirm" class="modal">
+        <div class="modal-content">
+            <p id="confirmMessage">Are you sure?</p>
+            <button id="confirmYes">Yes</button>
+            <button id="confirmNo">No</button>
+        </div>
+    </div>
+
     <script src="dist/inventory.js"></script>
 </body>
 </html>
