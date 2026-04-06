@@ -1,56 +1,108 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechStore Inventory - Part1</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PROG2005 A2 Part 1 - Inventory</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>📦 TechStore Inventory System</h1>
-        <div id="messageArea"></div>
-        <div class="form-panel">
-            <h2>Add / Edit Item</h2>
-            <input type="text" id="itemName" placeholder="Item Name">
-            <select id="category">
-                <option>Electronics</option><option>Furniture</option><option>Clothing</option>
-                <option>Tools</option><option>Miscellaneous</option>
-            </select>
-            <input type="number" id="quantity" placeholder="Quantity">
-            <input type="number" id="price" placeholder="Price">
-            <input type="text" id="supplier" placeholder="Supplier">
-            <select id="stockStatus">
-                <option>In Stock</option><option>Low Stock</option><option>Out of Stock</option>
-            </select>
-            <select id="popular">
-                <option>Yes</option><option>No</option>
-            </select>
-            <input type="text" id="comment" placeholder="Comment">
-            <button id="submitBtn">Add Item</button>
-            <button id="updateBtn">Update (by Name)</button>
-            <button id="deleteBtn">Delete (by Name)</button>
-            <button id="clearBtn">Clear Form</button>
-        </div>
-        <div>
-            <input type="text" id="searchInput" placeholder="Search by name">
-            <button id="searchBtn">Search</button>
-            <button id="resetSearchBtn">Reset</button>
-            <button id="showAllBtn">Show All</button>
-            <button id="showPopularBtn">Show Popular</button>
-        </div>
-        <div id="inventoryTable"></div>
-    </div>
+  <div class="container">
+    <header>
+      <h1>TechStore Inventory</h1>
+      <p>TypeScript session-based inventory manager</p>
+    </header>
 
-    <!-- 自定义模态框 -->
-    <div id="customConfirm" class="modal">
-        <div class="modal-content">
-            <p id="confirmMessage">Are you sure?</p>
-            <button id="confirmYes">Yes</button>
-            <button id="confirmNo">No</button>
-        </div>
-    </div>
+    <section class="stats">
+      <div class="stat">Total Items: <span id="totalItems">0</span></div>
+      <div class="stat">Total Value: $<span id="totalValue">0.00</span></div>
+      <div class="stat">Low/Out Stock: <span id="lowStockCount">0</span></div>
+    </section>
 
-    <script src="dist/inventory.js"></script>
+    <section id="messageArea" class="message" aria-live="polite"></section>
+
+    <section class="card">
+      <h2>Item Form</h2>
+      <div class="form-grid">
+        <label>Item ID *<input id="itemId" type="text" required /></label>
+        <label>Item Name *<input id="itemName" type="text" required /></label>
+        <label>Category *<select id="category"></select></label>
+        <label>Quantity *<input id="quantity" type="number" min="0" required /></label>
+        <label>Price *<input id="price" type="number" min="0" step="0.01" required /></label>
+        <label>Supplier *<input id="supplier" type="text" required /></label>
+        <label>Stock Status *<select id="stockStatus"></select></label>
+        <label>Popular *<select id="popular"></select></label>
+        <label>Comment<input id="comment" type="text" /></label>
+      </div>
+      <div class="row">
+        <button id="submitBtn">Add Item</button>
+        <button id="updateBtn">Update (by Name)</button>
+        <button id="deleteBtn" class="danger">Delete (by Name)</button>
+        <button id="clearBtn" class="ghost">Clear Form</button>
+      </div>
+    </section>
+
+    <section class="toolbar card">
+      <div class="row">
+        <input id="searchInput" type="text" placeholder="Search by item name" />
+        <button id="searchBtn">Search</button>
+        <button id="resetSearchBtn" class="ghost">Reset</button>
+        <button id="showAllBtn" class="ghost">Show All</button>
+        <button id="showPopularBtn" class="ghost">Popular Only</button>
+      </div>
+      <div class="row">
+        <label>Category Filter
+          <select id="categoryFilter"></select>
+        </label>
+        <label>Sort
+          <select id="sortBy">
+            <option value="none">None</option>
+            <option value="price_asc">Price Low to High</option>
+            <option value="price_desc">Price High to Low</option>
+            <option value="qty_asc">Quantity Low to High</option>
+            <option value="qty_desc">Quantity High to Low</option>
+          </select>
+        </label>
+        <button id="exportBtn" class="ghost">Export CSV</button>
+        <button id="batchDeleteBtn" class="danger">Batch Delete</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3 id="tableTitle">All Inventory</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="selectAll" /></th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Supplier</th>
+              <th>Stock</th>
+              <th>Popular</th>
+              <th>Comment</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="inventoryBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <div id="customConfirm" class="modal" aria-hidden="true">
+    <div class="dialog">
+      <p id="confirmMessage">Are you sure?</p>
+      <div class="row">
+        <button id="confirmYes" class="danger">Yes</button>
+        <button id="confirmNo" class="ghost">No</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dist/inventory.js"></script>
 </body>
 </html>
