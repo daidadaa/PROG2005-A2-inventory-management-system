@@ -1,0 +1,62 @@
+:host {
+  display: block;
+}
+
+.app-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.topbar {
+  background: linear-gradient(135deg, #0f766e, #155e75);
+  color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.topbar p {
+  margin: 6px 0 0;
+  opacity: 0.9;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #0f172a;
+  background: #e2e8f0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.nav a.active {
+  background: #0f766e;
+  color: #fff;
+}
+
+.page-wrap {
+  background: #fff;
+  border: 1px solid #dbe4ee;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+@media (max-width: 720px) {
+  .nav a {
+    width: 100%;
+    text-align: center;
+  }
+}

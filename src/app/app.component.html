@@ -1,0 +1,18 @@
+<div class="app-shell">
+  <header class="topbar">
+    <h1>{{ appName }}</h1>
+    <p>{{ appSubtitle }}</p>
+  </header>
+
+  <nav class="nav">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/manage" routerLinkActive="active">Manage</a>
+    <a routerLink="/search" routerLinkActive="active">Search</a>
+    <a routerLink="/privacy-security" routerLinkActive="active">Privacy</a>
+    <a routerLink="/help" routerLinkActive="active">Help</a>
+  </nav>
+
+  <main class="page-wrap">
+    <router-outlet></router-outlet>
+  </main>
+</div>
